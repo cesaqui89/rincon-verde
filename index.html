@@ -1,1 +1,1375 @@
-hola
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rincón Verde Pocora — Bosque Lluvioso en Pocora, Limón</title>
+  <meta name="description" content="Escapada al bosque lluvioso en Pocora, Guácimo, Limón. Caminatas nocturnas, observación de fauna, río y naturaleza pura. Contacto por WhatsApp.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bosque: #1B4332;
+      --bosque-oscuro: #0F2A1D;
+      --tierra: #8B6914;
+      --arena: #F5F0E8;
+      --arena-oscuro: #E8E0D0;
+      --noche: #2D1B0E;
+      --hoja: #52B788;
+      --hoja-clara: #74C69D;
+      --niebla: #E8E4DE;
+      --blanco: #FEFCF9;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      color: var(--noche);
+      background: var(--arena);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* === HEADER === */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 90;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(15,42,29,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(82,183,136,0.1);
+    }
+
+    .header-logo {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--blanco);
+      text-decoration: none;
+    }
+
+    .header-logo em {
+      color: var(--hoja-clara);
+      font-style: italic;
+    }
+
+    .lang-toggle {
+      display: inline-flex;
+      background: rgba(255,255,255,0.1);
+      border-radius: 6px;
+      padding: 3px;
+    }
+
+    .lang-btn {
+      padding: 0.4rem 1rem;
+      border: none;
+      background: transparent;
+      border-radius: 5px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      color: var(--blanco);
+      opacity: 0.6;
+      transition: all 0.2s ease;
+    }
+
+    .lang-btn.active {
+      background: var(--hoja);
+      color: var(--bosque-oscuro);
+      opacity: 1;
+    }
+
+    .lang-es, .lang-en { display: none; }
+    .lang-es.active, .lang-en.active { display: inline; }
+
+    /* === HERO === */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      padding-top: 5rem;
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(160deg, rgba(27,67,50,0.92) 0%, rgba(15,42,29,0.85) 50%, rgba(45,27,14,0.8) 100%),
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"><rect fill="%231B4332" width="800" height="600"/><circle cx="200" cy="150" r="80" fill="%2352B788" opacity="0.15"/><circle cx="600" cy="400" r="120" fill="%2374C69D" opacity="0.1"/></svg>');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 120px;
+      background: linear-gradient(to top, var(--bosque-oscuro), transparent);
+    }
+
+    .hero-tag {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--hoja-clara);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.2s;
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 700;
+      color: var(--blanco);
+      line-height: 1;
+      margin-bottom: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.4s;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--hoja-clara);
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2.5vw, 1.35rem);
+      color: var(--niebla);
+      max-width: 500px;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.6s;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--hoja);
+      color: var(--bosque-oscuro);
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 24px rgba(82,183,136,0.3);
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.8s;
+    }
+
+    .hero-cta:hover {
+      background: var(--hoja-clara);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(82,183,136,0.4);
+    }
+
+    .hero-cta svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--blanco);
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 1s;
+    }
+
+    .scroll-hint span {
+      display: block;
+      width: 2px;
+      height: 32px;
+      background: var(--hoja-clara);
+      margin: 0.5rem auto 0;
+      animation: scrollPulse 2s ease infinite;
+    }
+
+    /* === LEAF DIVIDER === */
+    .leaf-divider {
+      height: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .leaf-divider.to-dark {
+      background: linear-gradient(to bottom, var(--arena), var(--bosque));
+    }
+
+    .leaf-divider.to-light {
+      background: linear-gradient(to bottom, var(--bosque), var(--arena));
+    }
+
+    .leaf-divider.to-dark-mapa {
+      background: linear-gradient(to bottom, var(--niebla), var(--bosque));
+    }
+
+    .leaf-divider.to-light-mapa {
+      background: linear-gradient(to bottom, var(--bosque), var(--niebla));
+    }
+
+    /* === SECTIONS === */
+    section {
+      padding: 5rem 2rem;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--tierra);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      color: var(--bosque);
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-text {
+      font-size: 1.05rem;
+      color: var(--noche);
+      max-width: 600px;
+      opacity: 0.85;
+    }
+
+    /* === ACTIVITIES === */
+    #actividades {
+      background:
+        linear-gradient(
+          to bottom,
+          var(--bosque-oscuro) 0%,
+          rgba(15,42,29,0.9) 8%,
+          rgba(27,67,50,0.5) 25%,
+          rgba(27,67,50,0.4) 50%,
+          rgba(27,67,50,0.5) 75%,
+          rgba(15,42,29,0.9) 92%,
+          var(--bosque-oscuro) 100%
+        ),
+        url('images/background.jpeg') center/cover no-repeat fixed;
+      padding: 6rem 2rem;
+      position: relative;
+    }
+
+    #actividades::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 120px;
+      background: linear-gradient(to bottom, var(--bosque-oscuro), transparent);
+      pointer-events: none;
+    }
+
+    #actividades::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 120px;
+      background: linear-gradient(to top, var(--bosque-oscuro), transparent);
+      pointer-events: none;
+    }
+
+    #actividades .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    #actividades .section-label { color: var(--hoja-clara); }
+    #actividades .section-title { color: var(--blanco); }
+    #actividades .section-text { color: var(--niebla); }
+
+    .activities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .activity-card {
+      background: rgba(254,252,249,0.95);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 16px;
+      padding: 1.75rem;
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .activity-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(45,27,14,0.08);
+    }
+
+    .activity-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--arena);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .activity-card h3 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--bosque);
+      margin-bottom: 0.5rem;
+    }
+
+    .activity-card p {
+      font-size: 0.9rem;
+      color: var(--noche);
+      opacity: 0.75;
+      line-height: 1.5;
+    }
+
+    /* === GALLERY === */
+    .gallery {
+      background: var(--arena);
+      padding: 5rem 2rem;
+    }
+
+    .gallery .section-label { color: var(--tierra); }
+    .gallery .section-title { color: var(--bosque); }
+    .gallery .section-text { color: var(--noche); }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 2.5rem;
+    }
+
+    .gallery-item {
+      aspect-ratio: 4/3;
+      background: var(--arena-oscuro);
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--hoja);
+      font-size: 0.85rem;
+      font-weight: 500;
+      border: 1px solid var(--arena-oscuro);
+    }
+
+    .gallery-item.span-2 {
+      grid-column: span 2;
+      aspect-ratio: 16/9;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .gallery-item { cursor: pointer; }
+
+    /* === LIGHTBOX === */
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.92);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      cursor: pointer;
+      padding: 2rem;
+    }
+
+    .lightbox.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      transform: scale(0.9);
+      transition: transform 0.3s ease;
+    }
+
+    .lightbox.active img {
+      transform: scale(1);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      border-radius: 50%;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease;
+    }
+
+    .lightbox-close:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    .lightbox-counter {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.6);
+      font-size: 0.85rem;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px;
+      height: 48px;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      border-radius: 50%;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease;
+    }
+
+    .lightbox-nav:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    .lightbox-prev { left: 1.5rem; }
+    .lightbox-next { right: 1.5rem; }
+
+    @media (max-width: 640px) {
+      .lightbox-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+      }
+      .lightbox-prev { left: 0.75rem; }
+      .lightbox-next { right: 0.75rem; }
+    }
+
+    /* === VISITORS === */
+    #visitantes {
+      background: var(--bosque);
+    }
+
+    #visitantes .section-label { color: var(--hoja-clara); }
+    #visitantes .section-title { color: var(--blanco); }
+    #visitantes .section-text { color: var(--niebla); }
+
+    .visitors-row {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      padding: 1rem 0;
+      margin-top: 2rem;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .visitor-photo {
+      flex: 0 0 200px;
+      height: 260px;
+      background: var(--bosque-oscuro);
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid rgba(82,183,136,0.2);
+    }
+
+    .visitor-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .visitor-photo:hover img {
+      transform: scale(1.05);
+    }
+
+    /* === SOCIAL === */
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.9rem 1.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .social-link svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .social-link.instagram {
+      background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+      color: white;
+    }
+
+    .social-link.instagram:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(131,58,180,0.35);
+    }
+
+    .social-link.facebook {
+      background: #1877F2;
+      color: white;
+    }
+
+    .social-link.facebook:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(24,119,242,0.35);
+    }
+
+    /* === SERVICES === */
+    #servicios {
+      background:
+        linear-gradient(
+          to bottom,
+          var(--bosque-oscuro) 0%,
+          rgba(15,42,29,0.85) 15%,
+          rgba(27,67,50,0.6) 40%,
+          rgba(27,67,50,0.6) 60%,
+          rgba(15,42,29,0.85) 85%,
+          var(--bosque-oscuro) 100%
+        ),
+        url('images/background2.jpg') center/cover no-repeat fixed;
+      padding: 6rem 2rem;
+      position: relative;
+    }
+
+    #servicios::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 120px;
+      background: linear-gradient(to bottom, var(--bosque-oscuro), transparent);
+      pointer-events: none;
+    }
+
+    #servicios::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 120px;
+      background: linear-gradient(to top, var(--bosque-oscuro), transparent);
+      pointer-events: none;
+    }
+
+    #servicios .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    #servicios .section-label { color: var(--hoja-clara); }
+    #servicios .section-title { color: var(--blanco); }
+    #servicios .section-text { color: var(--niebla); }
+
+    .services-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .service-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 1.25rem;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.15);
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--blanco);
+    }
+
+    .service-check {
+      width: 24px;
+      height: 24px;
+      background: var(--hoja);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .service-check svg {
+      width: 14px;
+      height: 14px;
+      stroke: var(--bosque-oscuro);
+    }
+
+    #servicios .service-check svg {
+      stroke: var(--blanco);
+    }
+
+    /* === MAP === */
+    .map-section {
+      background: var(--niebla);
+    }
+
+    .maps-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .map-wrapper {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(45,27,14,0.1);
+      position: relative;
+    }
+
+    .map-label {
+      position: absolute;
+      top: 0.75rem;
+      left: 0.75rem;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--blanco);
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--bosque);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    .map-label svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .map-wrapper iframe {
+      width: 100%;
+      height: 450px;
+      border: none;
+      display: block;
+    }
+
+    .directions {
+      margin-top: 1.5rem;
+      padding: 1.25rem;
+      background: var(--blanco);
+      border-radius: 12px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      border-left: 4px solid var(--hoja);
+    }
+
+    .directions strong {
+      color: var(--bosque);
+    }
+
+    /* === FOOTER === */
+    footer {
+      background: var(--bosque-oscuro);
+      color: var(--niebla);
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    footer p {
+      font-size: 0.85rem;
+      opacity: 0.6;
+      line-height: 1.6;
+    }
+
+    footer a {
+      color: var(--hoja-clara);
+      text-decoration: none;
+    }
+
+    /* === WHATSAPP FAB === */
+    .whatsapp-fab {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      width: 60px;
+      height: 60px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+      z-index: 100;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .whatsapp-fab:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 28px rgba(37,211,102,0.5);
+    }
+
+    .whatsapp-fab svg {
+      width: 30px;
+      height: 30px;
+      fill: white;
+    }
+
+    .whatsapp-fab .fab-tooltip {
+      position: absolute;
+      right: 72px;
+      background: var(--bosque);
+      color: var(--blanco);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .whatsapp-fab:hover .fab-tooltip {
+      opacity: 1;
+    }
+
+    /* === ANIMATIONS === */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.2); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 640px) {
+      section { padding: 3.5rem 1.25rem; }
+
+      #actividades {
+        padding: 4rem 1.25rem;
+        background-attachment: scroll;
+      }
+
+      #actividades::before,
+      #actividades::after {
+        height: 60px;
+      }
+
+      #servicios {
+        padding: 4rem 1.25rem;
+        background-attachment: scroll;
+      }
+
+      #servicios::before,
+      #servicios::after {
+        height: 60px;
+      }
+
+      .site-header {
+        padding: 0.75rem 1rem;
+      }
+
+      .header-logo {
+        font-size: 1.1rem;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .gallery-item.span-2 {
+        grid-column: span 2;
+      }
+
+      .visitor-photo {
+        flex: 0 0 160px;
+        height: 210px;
+      }
+
+      .social-links {
+        flex-direction: column;
+      }
+
+      .social-link {
+        justify-content: center;
+      }
+
+      .whatsapp-fab {
+        width: 54px;
+        height: 54px;
+        bottom: 1rem;
+        right: 1rem;
+      }
+
+      .whatsapp-fab svg {
+        width: 26px;
+        height: 26px;
+      }
+
+      .map-wrapper iframe {
+        height: 300px;
+      }
+
+      .maps-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+      .gallery-item.span-2 {
+        grid-column: span 1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <a href="#" class="header-logo">Rincón <em>Verde</em> Pocora</a>
+    <div class="lang-toggle">
+      <button class="lang-btn active" data-lang="es" onclick="switchLang('es')">ES</button>
+      <button class="lang-btn" data-lang="en" onclick="switchLang('en')">EN</button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <p class="hero-tag">
+      <span class="lang-es active">Pocora, Guácimo, Limón, Costa Rica</span>
+      <span class="lang-en">Pocora, Guácimo, Limón, Costa Rica</span>
+    </p>
+    <h1>
+      <span class="lang-es active">Rincón <em>Verde</em> Pocora</span>
+      <span class="lang-en">Rincón <em>Verde</em> Pocora</span>
+    </h1>
+    <p class="hero-sub">
+      <span class="lang-es active">Bosque lluvioso, río, fauna silvestre y la paz que solo el verde profundo puede dar.</span>
+      <span class="lang-en">Rainforest, river, wildlife, and the peace only deep green can give.</span>
+    </p>
+    <a href="https://wa.me/50684384958?text=Hola,%20quiero%20información%20sobre%20Rincón%20Verde" class="hero-cta" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      <span class="lang-es active">Escribinos por WhatsApp</span>
+      <span class="lang-en">Message us on WhatsApp</span>
+    </a>
+    <div class="scroll-hint">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
+      <span></span>
+    </div>
+  </section>
+
+  <!-- ACTIVITIES -->
+  <section id="actividades">
+    <div class="container">
+      <p class="section-label">
+        <span class="lang-es active">Qué hacer</span>
+        <span class="lang-en">What to do</span>
+      </p>
+      <h2 class="section-title">
+        <span class="lang-es active">La naturaleza como<br>plan principal</span>
+        <span class="lang-en">Nature as the<br>main plan</span>
+      </h2>
+      <p class="section-text">
+        <span class="lang-es active">Cada visita es una oportunidad para ver cosas que la ciudad no ofrece. Desde el bosque hasta el río, hay algo esperándote.</span>
+        <span class="lang-en">Every visit is a chance to see things the city can't offer. From the forest to the river, something awaits you.</span>
+      </p>
+
+      <div class="activities-grid">
+        <div class="activity-card">
+          <div class="activity-icon">🦜</div>
+          <h3>
+            <span class="lang-es active">Observación de aves</span>
+            <span class="lang-en">Bird watching</span>
+          </h3>
+          <p>
+            <span class="lang-es active">Fotos y vinoculares para detectar especies del bosque lluvioso atlántico.</span>
+            <span class="lang-en">Photos and binoculars to spot species from the Atlantic rainforest.</span>
+          </p>
+        </div>
+        <div class="activity-card">
+          <div class="activity-icon">🌙</div>
+          <h3>
+            <span class="lang-es active">Caminatas nocturnas</span>
+            <span class="lang-en">Night hikes</span>
+          </h3>
+          <p>
+            <span class="lang-es active">El bosque de noche es otro mundo. Serpientes, insectos, ranas y sorpresas.</span>
+            <span class="lang-en">The forest at night is another world. Snakes, insects, frogs, and surprises.</span>
+          </p>
+        </div>
+        <div class="activity-card">
+          <div class="activity-icon">💧</div>
+          <h3>
+            <span class="lang-es active">Acceso al río</span>
+            <span class="lang-en">River access</span>
+          </h3>
+          <p>
+            <span class="lang-es active">En los perímetros de la finca, el río te espera para refrescarte.</span>
+            <span class="lang-en">Along the farm's perimeter, the river awaits to cool you off.</span>
+          </p>
+        </div>
+        <div class="activity-card">
+          <div class="activity-icon">🐒</div>
+          <h3>
+            <span class="lang-es active">Fauna silvestre</span>
+            <span class="lang-en">Wildlife</span>
+          </h3>
+          <p>
+            <span class="lang-es active">Monos, roedores, lagartijas, anfibios. La vida está en todos lados.</span>
+            <span class="lang-en">Monkeys, rodents, lizards, amphibians. Life is everywhere.</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="leaf-divider to-light"></div>
+
+  <!-- GALLERY -->
+  <section class="gallery" id="galeria">
+    <div class="container">
+      <p class="section-label">
+        <span class="lang-es active">Galería</span>
+        <span class="lang-en">Gallery</span>
+      </p>
+      <h2 class="section-title">
+        <span class="lang-es active">Así se ve<br>Rincón Verde Pocora</span>
+        <span class="lang-en">This is what<br>Rincón Verde Pocora looks like</span>
+      </h2>
+      <p class="section-text">
+        <span class="lang-es active">Imágenes del bosque, la fauna y las instalaciones.</span>
+        <span class="lang-en">Photos of the forest, wildlife, and facilities.</span>
+      </p>
+
+      <div class="gallery-grid">
+        <div class="gallery-item span-2">
+          <img src="images/galeria1.jpeg" alt="Vista panorámica de Rincón Verde Pocora" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="images/bosque.webp" alt="Bosque lluvioso de Rincón Verde Pocora" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="images/galeria2.jpeg" alt="Naturaleza en Rincón Verde Pocora" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="images/anfibios.jpg" alt="Anfibios en Rincón Verde Pocora" loading="lazy">
+        </div>
+        <div class="gallery-item span-2">
+          <img src="images/instalaciones.jpg" alt="Instalaciones de Rincón Verde Pocora" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="images/noche.jpg" alt="Vida nocturna en Rincón Verde Pocora" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="leaf-divider to-dark"></div>
+
+  <!-- VISITORS -->
+  <section id="visitantes">
+    <div class="container">
+      <p class="section-label">
+        <span class="lang-es active">Visitantes</span>
+        <span class="lang-en">Visitors</span>
+      </p>
+      <h2 class="section-title">
+        <span class="lang-es active">Ellos ya pasaron<br>por Rincón Verde Pocora</span>
+        <span class="lang-en">They've already been<br>to Rincón Verde Pocora</span>
+      </h2>
+      <p class="section-text">
+        <span class="lang-es active">Fotos reales de quienes conocieron el bosque. Vos podés ser el próximo.</span>
+        <span class="lang-en">Real photos from those who discovered the forest. You could be next.</span>
+      </p>
+
+      <div class="visitors-row">
+        <div class="visitor-photo">
+          <img src="images/visitantes.jpg" alt="Visitante de Rincón Verde Pocora" loading="lazy">
+        </div>
+        <div class="visitor-photo">
+          <img src="images/visitantes1.jpeg" alt="Visitante de Rincón Verde Pocora" loading="lazy">
+        </div>
+        <div class="visitor-photo">
+          <img src="images/visitantes2.jpeg" alt="Visitante de Rincón Verde Pocora" loading="lazy">
+        </div>
+        <div class="visitor-photo">
+          <img src="images/visitantes3.jpeg" alt="Visitante de Rincón Verde Pocora" loading="lazy">
+        </div>
+        <div class="visitor-photo">
+          <img src="images/visitantes5.jpeg" alt="Visitante de Rincón Verde Pocora" loading="lazy">
+        </div>
+        <div class="visitor-photo">
+          <img src="images/visitantes6.jpeg" alt="Visitante de Rincón Verde Pocora" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="leaf-divider to-light"></div>
+
+  <!-- SOCIAL -->
+  <section id="redes">
+    <div class="container">
+      <p class="section-label">
+        <span class="lang-es active">Redes sociales</span>
+        <span class="lang-en">Social media</span>
+      </p>
+      <h2 class="section-title">
+        <span class="lang-es active">Seguinos en<br>las redes</span>
+        <span class="lang-en">Follow us on<br>social media</span>
+      </h2>
+      <p class="section-text">
+        <span class="lang-es active">Publicamos fotos y videos frecuentes del bosque, la fauna y las visitas.</span>
+        <span class="lang-en">We regularly post photos and videos of the forest, wildlife, and visits.</span>
+      </p>
+
+      <div class="social-links">
+        <a href="https://www.instagram.com/rinconverdepocora/" class="social-link instagram" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          @rinconverdepocora
+        </a>
+        <a href="https://www.facebook.com/profile.php?id=61588010523596" class="social-link facebook" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          Rincón Verde Pocora
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="leaf-divider to-dark"></div>
+
+  <!-- SERVICES -->
+  <section id="servicios">
+    <div class="container">
+      <p class="section-label">
+        <span class="lang-es active">Servicios</span>
+        <span class="lang-en">Services</span>
+      </p>
+      <h2 class="section-title">
+        <span class="lang-es active">Todo lo que necesitás,<br>nada que no</span>
+        <span class="lang-en">Everything you need,<br>nothing you don't</span>
+      </h2>
+      <p class="section-text">
+        <span class="lang-es active">Lo básico resuelto para que vos solo te preocupes de disfrutar.</span>
+        <span class="lang-en">The basics handled so you can just focus on enjoying.</span>
+      </p>
+
+      <div class="services-list">
+        <div class="service-item">
+          <div class="service-check">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <span class="lang-es active">Internet disponible</span>
+          <span class="lang-en">Internet available</span>
+        </div>
+        <div class="service-item">
+          <div class="service-check">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <span class="lang-es active">Contacto por WhatsApp</span>
+          <span class="lang-en">Contact via WhatsApp</span>
+        </div>
+        <div class="service-item">
+          <div class="service-check">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <span class="lang-es active">Servicios sanitarios</span>
+          <span class="lang-en">Restroom facilities</span>
+        </div>
+        <div class="service-item">
+          <div class="service-check">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <span class="lang-es active">Comida (reservar previamente)</span>
+          <span class="lang-en">Food (book in advance)</span>
+        </div>
+        <div class="service-item">
+          <div class="service-check">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <span class="lang-es active">Equipo para observación</span>
+          <span class="lang-en">Observation equipment</span>
+        </div>
+        <div class="service-item">
+          <div class="service-check">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <span class="lang-es active">Acceso al río</span>
+          <span class="lang-en">River access</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="leaf-divider to-light-mapa"></div>
+
+  <!-- MAP -->
+  <section class="map-section" id="llegar">
+    <div class="container">
+      <p class="section-label">
+        <span class="lang-es active">Ubicación</span>
+        <span class="lang-en">Location</span>
+      </p>
+      <h2 class="section-title">
+        <span class="lang-es active">Cómo llegar</span>
+        <span class="lang-en">How to get here</span>
+      </h2>
+      <p class="section-text">
+        <span class="lang-es active">Pocora, Guácimo, Limón. En el corazón del bosque lluvioso atlántico.</span>
+        <span class="lang-en">Pocora, Guácimo, Limón. In the heart of the Atlantic rainforest.</span>
+      </p>
+
+      <div class="maps-grid">
+        <div class="map-wrapper">
+          <div class="map-label">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r=".5" fill="currentColor"/></svg>
+            Waze
+          </div>
+          <iframe src="https://embed.waze.com/iframe?zoom=16&lat=10.126870&lon=-83.646251&ct=livemap" width="600" height="450" allowfullscreen></iframe>
+        </div>
+        <div class="map-wrapper">
+          <div class="map-label">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Google Maps
+          </div>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15710.672161482691!2d-83.65747001549016!3d10.126234727964402!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa0cb6b5e0811db%3A0x3c87457c4b42dffe!2sRinc%C3%B3n%20Verde%20Pocora!5e0!3m2!1ses-419!2scr!4v1786835128094!5m2!1ses-419!2scr"
+            width="600"
+            height="450"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"
+            title="Ubicación de Rincón Verde Pocora en Google Maps"
+          ></iframe>
+        </div>
+      </div>
+
+      <div class="directions">
+        <strong>
+          <span class="lang-es active">Dirección:</span>
+          <span class="lang-en">Address:</span>
+        </strong>
+        <span class="lang-es active">Pocora, Guácimo, Limón, Costa Rica. Usá Waze o Google Maps para llegar sin complicaciones.</span>
+        <span class="lang-en">Pocora, Guácimo, Limón, Costa Rica. Use Waze or Google Maps for easy directions.</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="leaf-divider to-dark-mapa"></div>
+
+  <!-- CTA FINAL -->
+  <section style="background: var(--bosque); text-align: center; padding: 5rem 2rem;">
+    <div class="container">
+      <h2 class="section-title" style="color: var(--blanco); margin-bottom: 1rem;">
+        <span class="lang-es active">¿Listo para conocer<br>el bosque?</span>
+        <span class="lang-en">Ready to discover<br>the forest?</span>
+      </h2>
+      <p class="section-text" style="color: var(--niebla); margin: 0 auto 2rem; text-align: center;">
+        <span class="lang-es active">Escribinos y armamos tu visita.</span>
+        <span class="lang-en">Message us and we'll plan your visit.</span>
+      </p>
+      <a href="https://wa.me/50684384958?text=Hola,%20quiero%20información%20sobre%20Rincón%20Verde" class="hero-cta" target="_blank" rel="noopener" style="animation: none; opacity: 1;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        <span class="lang-es active">Contactar por WhatsApp</span>
+        <span class="lang-en">Contact via WhatsApp</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Rincón Verde Pocora — Pocora, Guácimo, Limón, Costa Rica<br>
+    <a href="https://wa.me/50684384958" target="_blank" rel="noopener">WhatsApp</a> · 
+    <a href="https://www.instagram.com/rinconverdepocora/" target="_blank" rel="noopener">Instagram</a> · 
+    <a href="https://www.facebook.com/profile.php?id=61588010523596" target="_blank" rel="noopener">Facebook</a> · 
+    <a href="#llegar">
+      <span class="lang-es active">Cómo llegar</span>
+      <span class="lang-en">How to get here</span>
+    </a></p>
+  </footer>
+
+  <!-- WHATSAPP FAB -->
+  <a href="https://wa.me/50684384958?text=Hola,%20quiero%20información%20sobre%20Rincón%20Verde" class="whatsapp-fab" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <span class="fab-tooltip">
+      <span class="lang-es active">¿Tenés preguntas?</span>
+      <span class="lang-en">Questions?</span>
+    </span>
+  </a>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" aria-label="Cerrar">&times;</button>
+    <button class="lightbox-nav lightbox-prev" aria-label="Anterior">&#8249;</button>
+    <button class="lightbox-nav lightbox-next" aria-label="Siguiente">&#8250;</button>
+    <img src="" alt="">
+    <div class="lightbox-counter"></div>
+  </div>
+
+  <script>
+    function switchLang(lang) {
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+      document.documentElement.lang = lang === 'es' ? 'es' : 'en';
+      document.querySelectorAll('.lang-es').forEach(el => {
+        el.classList.toggle('active', lang === 'es');
+      });
+      document.querySelectorAll('.lang-en').forEach(el => {
+        el.classList.toggle('active', lang === 'en');
+      });
+    }
+
+    // Lightbox
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox.querySelector('img');
+    const lightboxCounter = lightbox.querySelector('.lightbox-counter');
+    const galleryImages = document.querySelectorAll('.gallery-item img');
+    let currentIndex = 0;
+
+    function openLightbox(index) {
+      currentIndex = index;
+      lightboxImg.src = galleryImages[index].src;
+      lightboxImg.alt = galleryImages[index].alt;
+      lightboxCounter.textContent = `${index + 1} / ${galleryImages.length}`;
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function navigateLightbox(direction) {
+      currentIndex = (currentIndex + direction + galleryImages.length) % galleryImages.length;
+      lightboxImg.src = galleryImages[currentIndex].src;
+      lightboxImg.alt = galleryImages[currentIndex].alt;
+      lightboxCounter.textContent = `${currentIndex + 1} / ${galleryImages.length}`;
+    }
+
+    galleryImages.forEach((img, index) => {
+      img.closest('.gallery-item').addEventListener('click', () => openLightbox(index));
+    });
+
+    lightbox.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
+    lightbox.querySelector('.lightbox-prev').addEventListener('click', (e) => { e.stopPropagation(); navigateLightbox(-1); });
+    lightbox.querySelector('.lightbox-next').addEventListener('click', (e) => { e.stopPropagation(); navigateLightbox(1); });
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') navigateLightbox(-1);
+      if (e.key === 'ArrowRight') navigateLightbox(1);
+    });
+  </script>
+
+</body>
+</html>
