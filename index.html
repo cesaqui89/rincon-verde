@@ -108,9 +108,13 @@
       overflow: hidden;
       background:
         linear-gradient(160deg, rgba(27,67,50,0.92) 0%, rgba(15,42,29,0.85) 50%, rgba(45,27,14,0.8) 100%),
-        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"><rect fill="%231B4332" width="800" height="600"/><circle cx="200" cy="150" r="80" fill="%2352B788" opacity="0.15"/><circle cx="600" cy="400" r="120" fill="%2374C69D" opacity="0.1"/></svg>');
-      background-size: cover;
-      background-position: center;
+        url('images/background.jpeg') center/cover no-repeat fixed;
+    }
+
+    @media (max-width: 640px) {
+      .hero {
+        background-attachment: scroll;
+      }
     }
 
     .hero::before {
@@ -273,14 +277,12 @@
         linear-gradient(
           to bottom,
           var(--bosque-oscuro) 0%,
-          rgba(15,42,29,0.9) 8%,
-          rgba(27,67,50,0.5) 25%,
-          rgba(27,67,50,0.4) 50%,
-          rgba(27,67,50,0.5) 75%,
-          rgba(15,42,29,0.9) 92%,
+          rgba(15,42,29,0.95) 8%,
+          rgba(27,67,50,0.85) 25%,
+          rgba(27,67,50,0.85) 75%,
+          rgba(15,42,29,0.95) 92%,
           var(--bosque-oscuro) 100%
-        ),
-        url('images/background.jpeg') center/cover no-repeat fixed;
+        );
       padding: 6rem 2rem;
       position: relative;
     }
